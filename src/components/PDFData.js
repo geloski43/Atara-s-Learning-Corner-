@@ -619,16 +619,7 @@ export const docs = [
 
   },
 
-  //reading
-  {
-
-    id: '68',
-
-    text: 'Barbie Phonics',
-
-    path: '/files/reading/Barbie_Phonics.pdf'
-
-  },
+  //reading index 68 missing
   {
 
     id: '69',

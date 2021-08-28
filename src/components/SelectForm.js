@@ -93,7 +93,6 @@ const SelectForm = ({
           <option value="67">Winter Weather Activity Pack</option>
         </optgroup>
         <optgroup label="Reading">
-          <option value="68">Barbie Phonics</option>
           <option value="69">Barbie Reading Enrichment</option>
           <option value="70">Helping Your Child Become a Reader</option>
           <option value="71">Skills Booster Fun with Reading G1</option>
