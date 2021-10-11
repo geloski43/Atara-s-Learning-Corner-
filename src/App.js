@@ -20,25 +20,19 @@ import peppa from './images/peppa.jpg';
 
 const images = [
   {
-
     id: '0',
-    name: "Ava",
-    source: ava
-
+    name: 'Ava',
+    source: ava,
   },
   {
-
     id: '1',
-    name: "Cocomelon",
-    source: cocomelon
-
+    name: 'Cocomelon',
+    source: cocomelon,
   },
   {
-
     id: '2',
-    name: "Peppa",
-    source: peppa
-
+    name: 'Peppa',
+    source: peppa,
   },
 ];
 
@@ -82,10 +76,10 @@ const StyledMenuItem = withStyles((theme) => ({
 
 const App = () => {
   const [pdfFile, setPdfFile] = useState(undefined);
-  const [instance, setInstance] = useState(null)
+  const [instance, setInstance] = useState(null);
 
-  const [student, setStudent] = useState("Atara");
-  const [nameTrigger, setNameTrigger] = useState("Atara");
+  const [student, setStudent] = useState('Atara');
+  const [nameTrigger, setNameTrigger] = useState('Atara');
   const [studentAvatar, setStudentAvatar] = useState(ava);
 
   const [openNameChange, setOpenNameChange] = useState(false);
@@ -138,9 +132,13 @@ const App = () => {
 
   const handlePdfChange = (e) => {
     setPdfFile(e.target.value);
-  }
+  };
 
-  let defaultFilePath = !!pdfFile ? docs.filter(x => { return x.id === pdfFile }) : docs[0]
+  let defaultFilePath = !!pdfFile
+    ? docs.filter((x) => {
+        return x.id === pdfFile;
+      })
+    : docs[0];
 
   useEffect(() => {
     WebViewer(
@@ -148,9 +146,9 @@ const App = () => {
         path: '/webviewer/lib',
         initialDoc: defaultFilePath.path,
       },
-      viewer.current,
+      viewer.current
     ).then((instance) => {
-      setInstance(instance)
+      setInstance(instance);
       const { documentViewer, annotationManager, Annotations } = instance.Core;
       documentViewer.addEventListener('documentLoaded', () => {
         const rectangleAnnot = new Annotations.RectangleAnnotation({
@@ -160,7 +158,7 @@ const App = () => {
           Y: 150,
           Width: 200,
           Height: 50,
-          Author: annotationManager.getCurrentUser()
+          Author: annotationManager.getCurrentUser(),
         });
 
         annotationManager.addAnnotation(rectangleAnnot);
@@ -172,37 +170,33 @@ const App = () => {
 
   useEffect(() => {
     if (instance && pdfFile) {
-      const file = docs.filter(doc => { return doc.id === pdfFile })
+      const file = docs.filter((doc) => {
+        return doc.id === pdfFile;
+      });
       if (file.length) {
         // console.log(file, file[0].path)
         instance.loadDocument(file[0].path);
       }
     }
-  }, [pdfFile, instance])
-
+  }, [pdfFile, instance]);
 
   return (
     <div className="App">
       <div
         className="header"
-        style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
       >
-        <div
-          style={{ display: "flex", flexDirection: "row" }}
-        >
-          <Avatar
-            alt="Favorite Character" src={studentAvatar} />
-          <span
-            style={{ marginTop: 13, marginLeft: 5 }}
-          >{`${student}`}</span>
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <Avatar alt="Favorite Character" src={studentAvatar} />
+          <span style={{ marginTop: 13, marginLeft: 5 }}>{`${student}`}</span>
         </div>
 
-        <div
-          style={{ marginTop: 13, cursor: "pointer" }}
-        >
-          <Icon
-            onClick={handleClickMenu}
-            icon="fa-solid:user-cog" />
+        <div style={{ marginTop: 13, cursor: 'pointer' }}>
+          <Icon onClick={handleClickMenu} icon="fa-solid:user-cog" />
 
           <StyledMenu
             id="customized-menu"
@@ -217,7 +211,11 @@ const App = () => {
               }}
             >
               <ListItemIcon>
-                <Icon width="35" height="35" icon="openmoji:european-name-badge" />
+                <Icon
+                  width="35"
+                  height="35"
+                  icon="openmoji:european-name-badge"
+                />
               </ListItemIcon>
               <ListItemText primary="Edit Student Name" />
             </StyledMenuItem>
@@ -231,7 +229,6 @@ const App = () => {
               </ListItemIcon>
               <ListItemText primary="Change Avatar" />
             </StyledMenuItem>
-
           </StyledMenu>
         </div>
 
@@ -248,18 +245,15 @@ const App = () => {
           handleToggle={handleToggle}
           checked={checked}
         />
-
       </div>
 
-      <div
-        style={{ display: "flex", justifyContent: "center" }}
-      >
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
         <SelectForm
+          docs={docs}
           classes={classes}
           student={student}
           handlePdfChange={handlePdfChange}
         />
-
       </div>
 
       <div className="webviewer" ref={viewer}></div>
